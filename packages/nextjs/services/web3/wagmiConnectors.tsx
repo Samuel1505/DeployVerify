@@ -11,6 +11,8 @@ import {
 import * as chains from "viem/chains";
 import { configureChains } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+// Add this import
 import { publicProvider } from "wagmi/providers/public";
 import scaffoldConfig from "~~/scaffold.config";
 import { burnerWalletConfig } from "~~/services/web3/wagmi-burner/burnerWalletConfig";
@@ -32,6 +34,20 @@ export const appChains = configureChains(
   [
     alchemyProvider({
       apiKey: scaffoldConfig.alchemyApiKey,
+    }),
+    jsonRpcProvider({
+      rpc: chain => {
+        // Handle Lisk Sepolia specifically
+        if (chain.id === 4202) {
+          return {
+            http: "https://rpc.sepolia-api.lisk.com",
+            // Optional: Add WS for real-time if your app needs it
+            // webSocket: 'wss://ws.sepolia-api.lisk.com',
+          };
+        }
+        // For other custom chains, add more if/else here
+        return null; // Let other providers handle it
+      },
     }),
     publicProvider(),
   ],

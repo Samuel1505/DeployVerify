@@ -8,11 +8,7 @@ import { appChains } from "../services/web3/wagmiConnectors";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import { useTheme } from "next-themes";
 import { ThirdwebProvider } from "thirdweb/react";
-// ✅ Add this import
 import { WagmiConfig } from "wagmi";
-import ScaffoldEthApp from "~~/app/layout";
-
-// ... ScaffoldEthApp component stays the same ...
 
 export const ScaffoldEthAppWithProviders = ({ children }: { children: React.ReactNode }) => {
   const { resolvedTheme } = useTheme();
@@ -25,8 +21,6 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
 
   return (
     <ThirdwebProvider>
-      {" "}
-      {/* ✅ Wrap everything with ThirdwebProvider */}
       <WagmiConfig config={wagmiConfig}>
         <ProgressBar />
         <RainbowKitProvider
@@ -34,7 +28,7 @@ export const ScaffoldEthAppWithProviders = ({ children }: { children: React.Reac
           avatar={BlockieAvatar}
           theme={mounted ? (isDarkMode ? darkTheme() : lightTheme()) : lightTheme()}
         >
-          <ScaffoldEthApp>{children}</ScaffoldEthApp>
+          {children}
         </RainbowKitProvider>
       </WagmiConfig>
     </ThirdwebProvider>

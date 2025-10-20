@@ -5,7 +5,7 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
   const { deployer } = await hre.getNamedAccounts();
   const { deploy } = hre.deployments;
 
-  // Deploy ERC20 Token
+  // Deploy MyToken
   await deploy("MyToken", {
     from: deployer,
     args: [],
@@ -13,8 +13,8 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
     autoMine: true,
   });
 
-  // Deploy ERC721 NFT
-  await deploy("MyNFT", {
+  // Deploy SimpleUSDC
+  await deploy("SimpleUSDC", {
     from: deployer,
     args: [],
     log: true,
@@ -23,4 +23,4 @@ const deployContracts: DeployFunction = async function (hre: HardhatRuntimeEnvir
 };
 
 export default deployContracts;
-deployContracts.tags = ["MyToken", "MyNFT"];
+deployContracts.tags = ["MyToken", "SimpleUSDC"];
